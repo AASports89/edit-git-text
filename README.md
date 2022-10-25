@@ -1,13 +1,13 @@
-# **Friends Git Social** [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](#isc-license)
+# **Edit Git Text** [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](#isc-license)
 ---
 
 ## Overview
 ---
-**Friends Git Social** utilizes ```MongoDB```, a popular choice for many social networks due to its speed with large amounts of data and flexibility with unstructured data. The technology behind **Friends Git Social** allows it to operate as a "full-stack" application. ```MongoDB``` centers on the movement of consistently changing data, thus it is a vital part of the functionality of **Friends Git Social**.
+**Edit Git Text** utilizes ```MongoDB```, a popular choice for many social networks due to its speed with large amounts of data and flexibility with unstructured data. The technology behind **Friends Git Social** allows it to operate as a "full-stack" application. ```MongoDB``` centers on the movement of consistently changing data, thus it is a vital part of the functionality of **Edit Git Text**.
 
-Through the use of a dynamic ```API``` **Friends Git Social** is an user-friendly and intuitive social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. ```Express.js``` is utilized for routing, ```MongoDB``` as database, and ```Mongoose ODM``` to retrieve data linked to user activities. Lastly, dynamic ```JavaScript``` ensures that data is accurately and consistently dated.
+Through the use of a dynamic ```API``` **Edit Git Text** is an user-friendly and intuitive social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. ```Express.js``` is utilized for routing, ```MongoDB``` as database, and ```Mongoose ODM``` to retrieve data linked to user activities. Lastly, dynamic ```JavaScript``` ensures that data is accurately and consistently dated.
 
-> **Note**: For a more detailed insight into the functionality and capabilities of **Friends Git Social**, feel free to refer to the video walkthrough link provided below.
+> **Note**: For a more detailed insight into the functionality and capabilities of **Edit Git Text**, feel free to refer to the video walkthrough link provided below.
 
 ## Table of Contents
 ---
@@ -15,10 +15,9 @@ Through the use of a dynamic ```API``` **Friends Git Social** is an user-friendl
   * [Overview](#overview)
   * [User Story](#user-story)
   * [Acceptance Criteria](#acceptance-criteria)
-  * [Getting Started](#getting-started)
   * [Installation and Running Locally](#installation-and-running-locally)
   * [Mock Up](#mock-up)
-  * [Video Walkthrough](#video-walkthrough)
+  * [Deployed Webpage URL](#deployed-webpage-url)
   * [GitHUB Repository](#github-repository)
   * [Evaluation Guideline](#evaluation-guideline)
   * [Questions](#questions)
@@ -28,186 +27,42 @@ Through the use of a dynamic ```API``` **Friends Git Social** is an user-friendl
 ---
 
 ```md
-AS A social media startup
-I WANT an API for my social network that uses a NoSQL database
-SO THAT my website can handle large amounts of unstructured data
+AS A developer
+I WANT to create notes or code snippets with or without an internet connection
+SO THAT I can reliably retrieve them for later use
 ```
 
 ## Acceptance Criteria
 ---
-> **Note:** The following criteria is used to determine if the standards set for **Friends Git Social** have been met:
+> **Note:** The following criteria is used to determine if the standards set for **Edit Git Text** have been met:
 
 ```md
-GIVEN a social network API
-WHEN I enter the command to invoke the application
-THEN my server is started and the Mongoose models are synced to the MongoDB database
-WHEN I open API GET routes in Insomnia for users and thoughts
-THEN the data for each of these routes is displayed in a formatted JSON
-WHEN I test API POST, PUT, and DELETE routes in Insomnia
-THEN I am able to successfully create, update, and delete users and thoughts in my database
-WHEN I test API POST and DELETE routes in Insomnia
-THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
+GIVEN a text editor web application
+WHEN I open my application in my editor
+THEN I should see a client server folder structure
+WHEN I run `npm run start` from the root directory
+THEN I find that my application should start up the backend and serve the client
+WHEN I run the text editor application from my terminal
+THEN I find that my JavaScript files have been bundled using webpack
+WHEN I run my webpack plugins
+THEN I find that I have a generated HTML file, service worker, and a manifest file
+WHEN I use next-gen JavaScript in my application
+THEN I find that the text editor still functions in the browser without errors
+WHEN I open the text editor
+THEN I find that IndexedDB has immediately created a database storage
+WHEN I enter content and subsequently click off of the DOM window
+THEN I find that the content in the text editor has been saved with IndexedDB
+WHEN I reopen the text editor after closing it
+THEN I find that the content in the text editor has been retrieved from our IndexedDB
+WHEN I click on the Install button
+THEN I download my web application as an icon on my desktop
+WHEN I load my web application
+THEN I should have a registered service worker using workbox
+WHEN I register a service worker
+THEN I should have my static assets pre cached upon loading along with subsequent pages and static assets
+WHEN I deploy to Heroku
+THEN I should have proper build scripts for a webpack application
 ```
-## Getting Started
-----
-
-> **Important:** Be sure to have MongoDB installed on your machine. Follow the [MongoDB installation guide on The Full-Stack Blog](https://coding-boot-camp.github.io/full-stack/mongodb/how-to-install-mongodb) to install MongoDB locally.
-
-Use the following guidelines to set up your models and ```API``` routes:
-
-### Models
-
-**User:**
-```
-* `username`
-  * String
-  * Unique
-  * Required
-  * Trimmed
-```
-```
-* `email`
-  * String
-  * Required
-  * Unique
-  * Must match a valid email address (look into Mongoose's matching validation)
-```
-```
-* `thoughts`
-  * Array of `_id` values referencing the `Thought` model
-```
-```
-* `friends`
-  * Array of `_id` values referencing the `User` model (self-reference)
-```
-
-**Schema Settings:**
-
-Create a virtual called ```friendCount``` that retrieves the length of the user's ```friends``` array field on query.
-
----
-
-**Thought:**
-```
-* `thoughtText`
-  * String
-  * Required
-  * Must be between 1 and 280 characters
-```
-```
-* `createdAt`
-  * Date
-  * Set default value to the current timestamp
-  * Use a getter method to format the timestamp on query
-```
-```
-* `username` (The user that created this thought)
-  * String
-  * Required
-```
-```
-* `reactions` (These are like replies)
-  * Array of nested documents created with the `reactionSchema`
-```
-
-**Schema Settings:**
-
-Create a virtual called ```reactionCount``` that retrieves the length of the thought's ```reactions``` array field on query.
-
----
-
-**Reaction** (SCHEMA ONLY)
-```
-* `reactionId`
-  * Use Mongoose's ObjectId data type
-  * Default value is set to a new ObjectId
-```
-```
-* `reactionBody`
-  * String
-  * Required
-  * 280 character maximum
-```
-```
-* `username`
-  * String
-  * Required
-```
-```
-* `createdAt`
-  * Date
-  * Set default value to the current timestamp
-  * Use a getter method to format the timestamp on query
-```
-
-**Schema Settings:**
-
-This will not be a model, but rather will be used as the ```reaction``` field's subdocument schema in the ```Thought``` model.
-
-### API Routes
-
-**```/api/users```**
-
-* ```GET``` all users
-
-* ```GET``` a single user by its ```_id``` and populated thought and friend data
-
-* ```POST``` a new user:
-
-### Sample Data
----
-```json
-{
-  "username": "lernantino",
-  "email": "lernantino@gmail.com"
-}
-```
-
-* ```PUT``` to update a user by its ```_id```
-
-* ```DELETE``` to remove user by its ```_id```
-
-**BONUS:** Remove a user's associated thoughts when deleted.
-
----
-
-**```/api/users/:userId/friends/:friendId```**
-
-* ```POST``` to add a new friend to a user's friend list
-
-* ```DELETE``` to remove a friend from a user's friend list
-
----
-
-**```/api/thoughts```**
-
-* ```GET``` to get all thoughts
-
-* ```GET``` to get a single thought by its ```_id```
-
-* ```POST``` to create a new thought (don't forget to push the created thought's ```_id``` to the associated user's ```thoughts``` array field)
-
-### Sample Data
----
-```json
-{
-  "thoughtText": "Here's a cool thought...",
-  "username": "lernantino",
-  "userId": "5edff358a0fcb779aa7b118b"
-}
-```
-
-* ```PUT``` to update a thought by its ```_id```
-
-* ```DELETE``` to remove a thought by its ```_id```
-
----
-
-**```/api/thoughts/:thoughtId/reactions```**
-
-* ```POST``` to create a reaction stored in a single thought's ```reactions``` array field
-
-* ```DELETE``` to pull and remove a reaction by the reaction's ```reactionId``` value
 
 ## Installation and Running Locally
 ---
@@ -243,7 +98,7 @@ This will not be a model, but rather will be used as the ```reaction``` field's 
  ```
  npm run start
  ```
- in the terminal cmd to install required packages & run **Friends Git Social** locally for testing routes using ```Insomnia```.
+ in the terminal cmd to install required packages & run **Edit Git Text** locally for testing routes using ```Insomnia```.
 
 ## Mock-Up
 ---
@@ -263,71 +118,66 @@ This will not be a model, but rather will be used as the ```reaction``` field's 
 
 > **'POST' & 'DELETE' "api/thoughts/reactions" routes:** ![In ```Insomnia```, tests for the ```POST``` & ```DELETE``` api/thoughts/reactions routes are depicted.](./images/api-thoughts-reaction-routes.gif)
 
-## Video Walkthrough
+## Deployed Webpage URL
 ---
-> **Note**: The following walkthrough video demonstrates the ```GET```,```POST```, ```PUT``` & ```DELETE``` routes for **"api/users"** & **"api/thoughts"** and the ```POST``` & ```DELETE``` routes for **"api/users/friends"** & **"api/thoughts/reactions"** all being tested in ```Insomnia```:
-
-> https://aasports89.github.io/friends-git-social/
+> https://TBD.com
 
 ## GitHUB Repository
 ---
-> https://github.com/AASports89/friends-git-social
+> https://github.com/AASports89/edit-git-text
 
 ## Evaluation Guideline
 ---
-> **Note**: The following evaluation guideline is used to determine if **Friends Git Social** meets the requirements for a minimum viable product:
-
-### Deliverables: 10%
-
-* Your GitHub repository containing your application code.
-
-### Walkthrough Video: 37%
-
-* A walkthrough video that demonstrates the functionality of the social media API must be submitted, and a link to the video should be included in your README file.
-
-  * The walkthrough video must show all of the technical acceptance criteria being met.
-
-  * The walkthrough video must demonstrate how to start the application’s server.
-
-  * The walkthrough video must demonstrate GET routes for all users and all thoughts being tested in Insomnia.
-
-  * The walkthrough video must demonstrate GET routes for a single user and a single thought being tested in Insomnia.
-
-  * The walkthrough video must demonstrate POST, PUT, and DELETE routes for users and thoughts being tested in Insomnia.
-
-  * Walkthrough video must demonstrate POST and DELETE routes for a user’s friend list being tested in Insomnia.
-
-  * Walkthrough video must demonstrate POST and DELETE routes for reactions to thoughts being tested in Insomnia.
+> **Note**: The following evaluation guideline is used to determine if **Edit Git Text** meets the requirements for a minimum viable product:
 
 ### Technical Acceptance Criteria: 40%
+---
+Satisfies all of the above acceptance criteria plus the following:
 
-* Satisfies all of the preceding acceptance criteria plus the following:
+Uses IndexedDB to create an object store and includes both GET and PUT methods
 
-  * Uses the [Mongoose package](https://www.npmjs.com/package/mongoose) to connect to a MongoDB database.
+The application works without an internet connection
 
-  * Includes User and Thought models outlined in the Challenge instructions.
+Automatically saves content inside the text editor when the DOM window is unfocused
 
-  * Includes schema settings for User and Thought models as outlined in the Challenge instructions.
+Bundled with webpack
 
-  * Includes Reactions as the `reaction` field's subdocument schema in the Thought model.
+Create a service worker with workbox that Caches static assets
 
-  * Uses functionality to format queried timestamps properly.
+The application should use babel in order to use async / await
+
+Application must have a generated manifest.json using the WebpackPwaManifest plug-in
+
+Can be installed as a Progressive Web Application
+
+### Deployment: 32%
+---
+Application deployed to Heroku at live URL with build scripts
+
+Application loads with no errors
+
+Application GitHub URL submitted
+
+GitHub repo contains application code
+
+Application Quality: 15%
+Application user experience is intuitive and easy to navigate
+
+Application user interface style is clean and polished
+
+Application resembles the mock-up functionality provided in the Challenge instructions
 
 ### Repository Quality: 13%
+---
+Repository has a unique name
 
-* Repository has a unique name.
+Repository follows best practices for file structure and naming conventions
 
-* Repository follows best practices for file structure and naming conventions.
+Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
 
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
+Repository contains multiple descriptive commit messages
 
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains a high-quality README with description and a link to a walkthrough video.
-
-### Bonus: +10 Points
-
-* Application deletes a user's associated thoughts when the user is deleted.
+Repository contains a quality README file with description, screenshot, and link to deployed application
 
 ## Questions
 ---
